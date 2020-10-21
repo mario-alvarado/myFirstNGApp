@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { akitaDevtools } from '@datorama/akita';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'myFirstNGApp';
+  
+  constructor(private ngZone: NgZone) {
+    akitaDevtools(ngZone);
+  }
 }

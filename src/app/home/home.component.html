@@ -1,0 +1,39 @@
+<div class="container">
+  <section>
+    <div class="button-row">
+      <button mat-raised-button color="primary" class="button-action" (click)="startLoading()">Subscribe</button>
+      <button mat-raised-button color="accent" class="button-action" (click)="stopLoading()">Unsubscribe</button>
+
+      <input type="text" #filter placeholder="Search">
+      <button mat-raised-button color="warn" class="button-action" (click)="setFilter(filter.value)">Filter</button>
+    </div>
+  </section>
+
+  <div *ngIf="appModel$ | async as model">
+    <mat-card>
+      <h4>Tweets</h4>
+      Total number of tweets: {{ model.tweetsCount }}
+      <br>Average of tweets per minute: {{ model.tweetsPerMinuteAverage }}
+      <div class="country-list-container">
+        <h4> Top 3 of countries by posted tweets </h4>
+        <li *ngFor="let tweet of tweetsByCountry$ | async">
+          {{ tweet.id }} = {{ tweet.counter }}
+        </li>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="tweets-container">
+    <div *ngFor="let tweet of tweets$ | async">
+      <mat-card>
+        <img src="{{tweet.profile_url}}" />
+        <div>
+          <span class="tweet-username"> User: @{{ tweet.username }}</span>
+          <br><span class="tweet-text">Country: {{tweet.country}}</span>
+          <br><span class="tweet-text">Tweet: {{tweet.text}}</span>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
